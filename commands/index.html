@@ -292,15 +292,6 @@
                 example: "/setup tickets"
             },
             {
-                name: "/ticket close",
-                category: "ticket",
-                categoryIcon: "confirmation_number",
-                categoryName: "أوامر التذاكر",
-                desc: "إغلاق التذكرة الحالية مع حفظ الأرشيف وحذف الغرفة تلقائياً.",
-                usage: "/ticket close [السبب]",
-                example: "/ticket close تم حل المشكلة"
-            },
-            {
                 name: "/setup commands",
                 category: "admin",
                 categoryIcon: "shield_person",
@@ -319,31 +310,22 @@
                 example: "/setup tickets"
             },
             {
-                name: "/ban",
-                category: "admin",
-                categoryIcon: "shield_person",
-                categoryName: "أوامر إدارية",
-                desc: "حظر عضو من السيرفر نهائياً مع إمكانية مسح رسائله الأخيرة من الشات.",
-                usage: "/ban [العضو] [السبب]",
-                example: "/ban @Mohammad مخالفة القوانين"
-            },
-            {
-                name: "/mute",
-                category: "admin",
-                categoryIcon: "shield_person",
-                categoryName: "أوامر إدارية",
-                desc: "كتم صوت عضو (Timeout) ومنعه من الكتابة والتفاعل لفترة محددة.",
-                usage: "/mute [العضو] [الوقت] [السبب]",
-                example: "/mute @User 1h سب وشتم"
-            },
-            {
-                name: "/user info",
+                name: "/avatar user",
                 category: "general",
                 categoryIcon: "public",
                 categoryName: "أوامر عامة",
-                desc: "عرض معلومات حسابك الدقيقة أو حساب عضو آخر (تاريخ الإنشاء، تاريخ الانضمام، الرتب).",
-                usage: "/user info [العضو]",
-                example: "/user info @Mohammad"
+                desc: "يعرض صورتك الشخصية او صورة شخص ما",
+                usage: "/avatar user",
+                example: "/avatar user [@username]"
+            },
+            {
+                name: "/avatar server",
+                category: "general",
+                categoryIcon: "public",
+                categoryName: "أوامر عامة",
+                desc: "يعرض صورة الخادم الحالي",
+                usage: "/avatar server",
+                example: "/avatar server"
             },
             {
                 name: "/xo",
