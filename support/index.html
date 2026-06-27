@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stella Bot | الدعم الفني</title>
+    <link rel="icon" type="image/png" href="../logo.png">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Stella Bot | الدعم الفني">
+    <meta property="og:description" content="صفحة ستيلا بوت الرسمية">
+    <meta property="og:image" content="../logo.png">
+    <meta property="og:theme-color" content="#4d5caa">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-main: #f3f5fa;
+            --bg-card: #ffffff;
+            --text-title: #11131e;
+            --text-body: #5f6674;
+            --border: rgba(0, 0, 0, 0.05);
+            --border-hover: rgba(77, 92, 170, 0.2);
+            --primary: #4d5caa;
+            --primary-glow: rgba(77, 92, 170, 0.06); 
+            --nav-bg: rgba(243, 245, 250, 0.85);
+            
+            /* ألوان الوميض للمستند المباشر */
+            --highlight-bg: rgba(77, 92, 170, 0.09);
+            --highlight-border: #4d5caa;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.2s ease, transform 0.2s ease;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-body);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .neon-glow-1 {
+            position: absolute; top: -150px; left: 50%; transform: translateX(-50%);
+            width: 100%; max-width: 700px; height: 700px; border-radius: 50%;
+            background: radial-gradient(circle, var(--primary-glow) 0%, transparent 75%);
+            z-index: -1; pointer-events: none;
+        }
+
+        .material-symbols-rounded {
+            font-family: 'Material Symbols Rounded' !important;
+            font-weight: normal; font-style: normal; font-size: 24px; line-height: 1;
+            display: inline-block; direction: ltr; -webkit-font-smoothing: antialiased;
+        }
+
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; height: 85px;
+            background: var(--nav-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 5%; z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5rem; font-weight: 700; display: flex; align-items: center; gap: 10px; text-decoration: none;
+        }
+
+        .btn-back {
+            background: transparent; color: var(--text-title); border: 1px solid var(--border);
+            padding: 10px 18px; border-radius: 12px; text-decoration: none; font-weight: 600;
+            display: flex; align-items: center; gap: 6px; font-size: 0.9rem;
+        }
+        .btn-back:hover { transform: translateY(-2px); border-color: var(--border-hover); }
+
+        .doc-container {
+            padding: 140px 20px 80px;
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        .doc-header-box { text-align: center; margin-bottom: 30px; }
+        .doc-header-box h1 { font-size: 2.2rem; font-weight: 700; color: var(--text-title); margin-bottom: 12px; }
+        
+        .badge-date {
+            background: rgba(77, 92, 170, 0.05); border: 1px solid var(--border);
+            padding: 8px 16px; border-radius: 100px; font-size: 0.85rem; font-weight: 600;
+            color: var(--primary); display: inline-flex; align-items: center; gap: 8px;
+        }
+
+        .search-box-container {
+            position: relative;
+            margin-bottom: 24px;
+            width: 100%;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 18px 50px 18px 20px;
+            font-size: 1rem;
+            font-weight: 500;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            color: var(--text-title);
+            outline: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.01);
+        }
+        .search-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 8px 25px rgba(77, 92, 170, 0.06);
+        }
+        .search-icon {
+            position: absolute; top: 50%; right: 20px; transform: translateY(-50%);
+            color: var(--text-body); pointer-events: none; font-size: 22px;
+        }
+
+        /* تحسين وعمل ريسبونسيف كامل للتصنيفات */
+        .category-tabs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            gap: 10px;
+            margin-bottom: 30px;
+            width: 100%;
+        }
+
+        .tab-btn {
+            background: var(--bg-card);
+            color: var(--text-body);
+            border: 1px solid var(--border);
+            padding: 12px 14px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            width: 100%;
+        }
+        .tab-btn:hover { border-color: var(--border-hover); color: var(--text-title); }
+        .tab-btn.active {
+            background: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+            box-shadow: 0 6px 15px rgba(77, 92, 170, 0.15);
+        }
+
+        .no-results {
+            text-align: center; padding: 40px; background: var(--bg-card);
+            border: 1px solid var(--border); border-radius: 16px; color: var(--text-body);
+            font-size: 1.05rem; display: none;
+        }
+
+        .accordion-wrapper {
+            display: flex; flex-direction: column; gap: 14px;
+            width: 100%;
+        }
+
+        .dropdown-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.01);
+            scroll-margin-top: 110px;
+            width: 100%;
+        }
+
+        .dropdown-trigger {
+            width: 100%; background: none; border: none; padding: 20px;
+            display: flex; align-items: center; justify-content: space-between;
+            cursor: pointer; text-align: right; position: relative;
+            gap: 10px;
+        }
+        .dropdown-card:hover { border-color: var(--border-hover); }
+
+        .trigger-content { display: flex; align-items: center; gap: 14px; flex-grow: 1; min-width: 0; }
+        
+        .trigger-icon {
+            width: 40px; height: 40px; background: rgba(77, 92, 170, 0.05);
+            border-radius: 10px; display: flex; align-items: center; justify-content: center;
+            color: var(--primary); flex-shrink: 0;
+        }
+
+        .trigger-content h3 { font-size: 1.05rem; color: var(--text-title); font-weight: 600; white-space: normal; line-height: 1.5; }
+        
+        .actions-wrapper {
+            display: flex; align-items: center; gap: 8px; flex-shrink: 0;
+        }
+
+        .btn-action-tool {
+            background: rgba(0, 0, 0, 0.02); border: 1px solid var(--border);
+            width: 36px; height: 36px; border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--text-body); cursor: pointer; z-index: 10;
+        }
+        .btn-action-tool:hover {
+            color: var(--primary); background: rgba(77, 92, 170, 0.08); border-color: var(--border-hover);
+        }
+
+        .arrow-icon {
+            color: var(--text-body);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dropdown-content {
+            max-height: 0; overflow: hidden;
+            transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.002));
+        }
+
+        .dropdown-body-text {
+            padding: 0 20px 20px 20px; color: var(--text-body);
+            font-size: 0.95rem; line-height: 1.8; text-align: justify;
+            border-top: 1px solid rgba(0,0,0,0.01);
+        }
+        .dropdown-body-text ul { margin-right: 20px; margin-top: 10px; }
+        .dropdown-body-text li { margin-bottom: 6px; }
+
+        .dropdown-card.active .arrow-icon {
+            transform: rotate(-180deg); color: var(--primary);
+        }
+        
+        .dropdown-card.active {
+            border-color: var(--primary);
+            box-shadow: 0 8px 25px rgba(77, 92, 170, 0.06);
+        }
+
+        /* أنيميشن الوميض الفخم للبند المباشر */
+        @keyframes targetHighlight {
+            0% { background-color: var(--bg-card); border-color: var(--border); }
+            20% { background-color: var(--highlight-bg); border-color: var(--highlight-border); box-shadow: 0 0 20px rgba(77, 92, 170, 0.15); }
+            80% { background-color: var(--highlight-bg); border-color: var(--highlight-border); box-shadow: 0 0 20px rgba(77, 92, 170, 0.15); }
+            100% { background-color: var(--bg-card); border-color: var(--primary); box-shadow: 0 8px 25px rgba(77, 92, 170, 0.06); }
+        }
+        .dropdown-card.highlighted {
+            animation: targetHighlight 2.5s cubic-bezier(0.4, 0, 0.2, 1) 1;
+        }
+
+        footer { padding: 40px 5%; text-align: center; font-size: 0.9rem; color: var(--text-body); border-top: 1px solid var(--border); margin-top: 60px; }
+        footer span { color: var(--text-title); font-weight: 600; }
+
+        /* شاشات الجوال الصغيرة جداً */
+        @media (max-width: 580px) {
+            .category-tabs {
+                grid-template-columns: repeat(2, 1fr); /* تظهر كصفين أنيقين بدلاً من الطيران خارج الشاشة */
+            }
+            .trigger-content h3 { font-size: 0.95rem; }
+            .doc-header-box h1 { font-size: 1.8rem; }
+            .nav .logo span { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="neon-glow-1"></div>
+    
+    <nav>
+        <a href="/" class="logo">
+            <span class="material-symbols-rounded" style="font-size: 30px; color: var(--primary);">cyclone</span>
+            <span style="color: var(--text-title)">Stella Bot</span>
+        </a>
+        <a href="/" class="btn-back">
+            <span class="material-symbols-rounded" style="font-size: 18px;">arrow_forward</span>
+            الرئيسية
+        </a>
+    </nav>
+
+    <div class="doc-container">
+        <div class="doc-header-box">
+            <div class="badge-date"><span class="material-symbols-rounded" style="font-size: 18px;">support_agent</span>لوحة المساعدة والأجوبة الجاهزة</div>
+            <h1 style="margin-top: 15px;">قاعدة معرفة الدعم الفني</h1>
+            <p style="font-size: 1.05rem; line-height: 1.6;">ابحث وانسخ الردود والروابط المباشرة لحل تذاكر المشتركين بسرعة فائقة.</p>
+        </div>
+
+        <div class="search-box-container">
+            <span class="material-symbols-rounded search-icon">search</span>
+            <input type="text" id="search-input" class="search-input" placeholder="ابحث برقم البند، العنوان، الأوامر، أو الكلمات الدلالية...">
+        </div>
+
+        <div class="category-tabs" id="tabs-container">
+            <button class="tab-btn active" onclick="switchCategory('all')">
+                <span class="material-symbols-rounded" style="font-size: 18px;">border_all</span> الكل
+            </button>
+            <button class="tab-btn" onclick="switchCategory('faq')">
+                <span class="material-symbols-rounded" style="font-size: 18px;">quiz</span> شائعة
+            </button>
+            <button class="tab-btn" onclick="switchCategory('premium')">
+                <span class="material-symbols-rounded" style="font-size: 18px;">workspace_premium</span> البريموم
+            </button>
+            <button class="tab-btn" onclick="switchCategory('setup')">
+                <span class="material-symbols-rounded" style="font-size: 18px;">settings</span> اعداد
+            </button>
+            <button class="tab-btn" onclick="switchCategory('commands')">
+                <span class="material-symbols-rounded" style="font-size: 18px;">terminal</span> اوامر
+            </button>
+            <button class="tab-btn" onclick="switchCategory('technical')">
+                <span class="material-symbols-rounded" style="font-size: 18px;">handyman</span> تقنية
+            </button>
+            <button class="tab-btn" onclick="switchCategory('other')">
+                <span class="material-symbols-rounded" style="font-size: 18px;">more_horiz</span> اخرى
+            </button>
+        </div>
+
+        <div id="no-results-msg" class="no-results">
+            <span class="material-symbols-rounded" style="font-size: 40px; color: var(--text-body); margin-bottom: 10px; display: block;">search_off</span>
+            لم يتم العثور على أي بنود تطابق تصفيتك أو بحثك الحالي!
+        </div>
+
+        <div class="accordion-wrapper" id="support-dropdown-container"></div>
+    </div>
+
+    <footer>
+        <p><span>Mazeej Studio</span> &copy; 2026</p>
+    </footer>
+
+    <script>
+
+        //all - faq - premium - setup - commands - premium - technical - other تصنيفات المساعدات
+        const supportData = [
+            {
+                id: "invite-bot",
+                category: "faq",
+                icon: "link",
+                title: "كيف اقوم بدعوة البوت الى السيرفر؟",
+                desc: "لاضافة ستيلا بوت قم بالنقر على الرابط التالي ومن ثم اختر السيرفر المراد اضافة البوت فيه\n- https://discord.com/oauth2/authorize?client_id=697781426527010877",
+                plainText: "لاضافة ستيلا بوت قم بالنقر على الرابط التالي ومن ثم اختر السيرفر المراد اضافة البوت فيه\n- https://discord.com/oauth2/authorize?client_id=697781426527010877"
+            },
+            {
+                id: "premium-features",
+                category: "premium",
+                icon: "star",
+                title: "ما هي مميزات اشتراك البريموم المتاحة؟",
+                desc: "يمكنك رؤية جميع المميزات التي يوفرها ستيلا بوت عن طريق الرابط التالي\n- https://stella-core.github.io/premium/",
+                plainText: "يمكنك رؤية جميع المميزات التي يوفرها ستيلا بوت عن طريق الرابط التالي\n- https://stella-core.github.io/premium/"
+            },
+
+        ];
+
+        let currentCategory = 'all';
+
+        function initSupport() {
+            const container = document.getElementById('support-dropdown-container');
+            if (!container) return;
+
+            let html = '';
+            supportData.forEach((item, index) => {
+                let listHtml = '';
+                if (item.list && item.list.length > 0) {
+                    listHtml = '<ul>';
+                    item.list.forEach(li => { listHtml += `<li>${li}</li>`; });
+                    listHtml += '</ul>';
+                }
+
+                html += `
+                    <div class="dropdown-card" id="${item.id}" data-category="${item.category}" data-title="${item.title}" data-desc="${item.desc}" data-list="${item.list ? item.list.join(' ') : ''}">
+                        <div class="dropdown-trigger">
+                            <div class="trigger-content" onclick="toggleDropdown('${item.id}')">
+                                <div class="trigger-icon">
+                                    <span class="material-symbols-rounded">${item.icon}</span>
+                                </div>
+                                <h3>${item.title}</h3>
+                            </div>
+                            <div class="actions-wrapper">
+                                <button class="btn-action-tool btn-copy-answer" title="نسخ الرد الجاهز لإرساله للعضو" onclick="copyAnswerText('${item.id}', ${index})">
+                                    <span class="material-symbols-rounded" style="font-size: 18px;">content_copy</span>
+                                </button>
+                                <button class="btn-action-tool" title="نسخ الرابط المباشر للبند" onclick="copyDirectLink('${item.id}')">
+                                    <span class="material-symbols-rounded" style="font-size: 18px;">share</span>
+                                </button>
+                                <span class="material-symbols-rounded arrow-icon" onclick="toggleDropdown('${item.id}')">expand_more</span>
+                            </div>
+                        </div>
+                        <div class="dropdown-content" id="content-${item.id}">
+                            <div class="dropdown-body-text">
+                                <p>${item.desc}</p>
+                                ${listHtml}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+
+            document.getElementById('search-input').addEventListener('input', filterSupport);
+            checkUrlHash();
+        }
+
+        function toggleDropdown(id) {
+            const card = document.getElementById(id);
+            const content = document.getElementById(`content-${id}`);
+            
+            if (card.classList.contains('active')) {
+                content.style.maxHeight = null;
+                card.classList.remove('active');
+            } else {
+                document.querySelectorAll('.dropdown-card.active').forEach(c => {
+                    c.classList.remove('active');
+                    c.querySelector('.dropdown-content').style.maxHeight = null;
+                });
+                
+                card.classList.add('active');
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        }
+
+        function copyAnswerText(id, index) {
+            const answerText = supportData[index].plainText;
+            navigator.clipboard.writeText(answerText).then(() => {
+                const icon = document.querySelector(`#${id} .btn-copy-answer span`);
+                icon.textContent = 'done';
+                icon.style.color = '#2ec4b6';
+                setTimeout(() => {
+                    icon.textContent = 'content_copy';
+                    icon.style.color = '';
+                }, 1500);
+            }).catch(err => console.error(err));
+        }
+
+        function copyDirectLink(id) {
+            const urlWithoutHash = window.location.href.split('#')[0];
+            const directLink = `${urlWithoutHash}#${id}`;
+            navigator.clipboard.writeText(directLink).then(() => {
+                const btn = document.querySelector(`#${id} [title="نسخ الرابط المباشر للبند"] span`);
+                btn.textContent = 'done';
+                btn.style.color = '#2ec4b6';
+                setTimeout(() => {
+                    btn.textContent = 'share';
+                    btn.style.color = '';
+                }, 1500);
+            }).catch(err => console.error(err));
+        }
+
+        function switchCategory(cat) {
+            currentCategory = cat;
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            
+            const eventTarget = window.event ? window.event.currentTarget : null;
+            if(eventTarget) {
+                eventTarget.classList.add('active');
+            } else {
+                const btns = document.querySelectorAll('.tab-btn');
+                if(cat === 'all') btns[0].classList.add('active');
+                else if(cat === 'faq') btns[1].classList.add('active');
+                else if(cat === 'premium') btns[2].classList.add('active');
+                else if(cat === 'setup') btns[3].classList.add('active');
+                else if(cat === 'commands') btns[4].classList.add('active');
+                else if(cat === 'technical') btns[5].classList.add('active');
+                else if(cat === 'other') btns[6].classList.add('active');
+            }
+            filterSupport();
+        }
+
+        function filterSupport() {
+            const searchVal = document.getElementById('search-input').value.trim().toLowerCase();
+            const cards = document.querySelectorAll('.dropdown-card');
+            const noResultsMsg = document.getElementById('no-results-msg');
+            let hasResults = false;
+
+            cards.forEach(card => {
+                const cardCat = card.getAttribute('data-category');
+                const title = card.getAttribute('data-title').toLowerCase();
+                const desc = card.getAttribute('data-desc').toLowerCase();
+                const list = card.getAttribute('data-list').toLowerCase();
+
+                const matchesCategory = (currentCategory === 'all' || cardCat === currentCategory);
+                const matchesSearch = (title.includes(searchVal) || desc.includes(searchVal) || list.includes(searchVal));
+
+                if (matchesCategory && matchesSearch) {
+                    card.style.display = 'block';
+                    hasResults = true;
+                } else {
+                    card.style.display = 'none';
+                    card.classList.remove('active');
+                    card.querySelector('.dropdown-content').style.maxHeight = null;
+                }
+            });
+
+            noResultsMsg.style.display = hasResults ? 'none' : 'block';
+        }
+
+        function checkUrlHash() {
+            const hash = window.location.hash.substring(1);
+            if (hash) {
+                const targetCard = document.getElementById(hash);
+                if (targetCard) {
+                    const cat = targetCard.getAttribute('data-category');
+                    switchCategory(cat);
+                    setTimeout(() => {
+                        toggleDropdown(hash);
+                        targetCard.scrollIntoView({ behavior: 'smooth' });
+                        targetCard.classList.add('highlighted');
+                        setTimeout(() => { targetCard.classList.remove('highlighted'); }, 2500);
+                    }, 500);
+                }
+            }
+        }
+
+        initSupport();
+    </script>
+</body>
+</html>
